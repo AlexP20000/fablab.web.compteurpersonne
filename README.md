@@ -1,2 +1,2 @@
 # fablab.web.compteurpersonne
-Page d'exemple puor accéder au donnée du compteur de personne
+Page PHP d'exemple pour accéder aux données du compteur de personne (dans une base influxDB)
