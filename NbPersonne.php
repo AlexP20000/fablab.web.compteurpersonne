@@ -36,6 +36,7 @@ $database	= $client->selectDB('mesures');
 
 
 // CONSTRUCTION DE LA REQUETE ----------------------------------------------------------------------
+// On va chercher le cumul des entrées/sorties par heure 8h en arrière par rapport à maintenant.
 $query	= "SELECT SUM(\"capteur\") as sum_capteur FROM autogen.passage WHERE position = 'dehors' AND time > now() - 8h  GROUP BY time(1h)";
 if (DEBUG) echo "Execution de la requète :<br/>".$query;
 
@@ -61,7 +62,29 @@ if(DEBUG) {
 	echo "</pre>";
 } 
 
-
+// FORMATAGE DES DONNÉES POUR LE GOOGLE CHART ------------------------------------------------------
+// CREATION DES COLONNES
+$Result->cols[] = array(
+		"id" 		=> "",
+		"label" 	=> "Cumul",
+		"pattern" 	=> "",
+		"type" 		=> "string"
+);
+$Result->cols[] = array(
+		"id" 		=> "",
+		"label" 	=> "Heure",
+		"pattern" 	=> "",
+		"type" 		=> "number"
+);
+// CREATION DES LIGNES
+foreach( $points as $point){
+	$heure	= substr($point['time'], 11,5);
+	$Result->rows[]["c"]	= array(
+			array( "v" => $heure, "f" => null),
+			array( "v" => abs($point['sum_capteur']), "f" => null),
+	);
+}
+$TAB_json	= json_encode($Result, JSON_PRETTY_PRINT);
 
 
 
@@ -82,18 +105,13 @@ if(DEBUG) {
       google.charts.load("current", {packages:["corechart"]});
       google.charts.setOnLoadCallback(drawChart);
       function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Language', 'Speakers (in millions)'],
-          ['German',  5.85],
-          ['French',  1.66],
-          ['Italian', 0.316],
-          ['Romansh', 0.0791]
-        ]);
+        var data = new google.visualization.DataTable(<?php echo $TAB_json; ?>);
+        
 
       var options = {
-        legend: 'none',
+    	      legend: 'none',
         pieSliceText: 'label',
-        title: 'Swiss Language Use (100 degree rotation)',
+        title: "Répartition du nombre de personnes par heure",
         pieStartAngle: 100,
       };
 
