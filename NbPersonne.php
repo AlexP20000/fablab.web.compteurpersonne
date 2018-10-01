@@ -9,7 +9,7 @@
 *	@author Alexandre PERETJATKO (APE)
 *	@version 18 sept. 2018	: APE	- Création.
 */ // ______________________________________________________________________________________________
-define("DEBUG", true);
+define("DEBUG", false);
 
 // LIBRAIRIE influxDB ------------------------------------------------------------------------------
 require 'vendor/autoload.php';
@@ -37,7 +37,7 @@ $database	= $client->selectDB('mesures');
 
 // CONSTRUCTION DE LA REQUETE ----------------------------------------------------------------------
 // On va chercher le cumul des entrées/sorties par heure 8h en arrière par rapport à maintenant.
-$query	= "SELECT SUM(\"capteur\") as sum_capteur FROM autogen.passage WHERE position = 'dehors' AND time > now() - 8h  GROUP BY time(1h)";
+$query	= "SELECT SUM(\"capteur\") as sum_capteur FROM autogen.passage WHERE position = 'dehors' AND time > now() - 8h  GROUP BY time(30m)";
 if (DEBUG) echo "Execution de la requète :<br/>".$query;
 
 
@@ -86,7 +86,11 @@ foreach( $points as $point){
 }
 $TAB_json	= json_encode($Result, JSON_PRETTY_PRINT);
 
-
+if(DEBUG){
+	echo "<pre>";
+	var_dump($TAB_json);
+	echo "</pre>";
+}
 
 
 
