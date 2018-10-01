@@ -9,30 +9,62 @@
 *	@author Alexandre PERETJATKO (APE)
 *	@version 18 sept. 2018	: APE	- Création.
 */ // ______________________________________________________________________________________________
-
+define("DEBUG", true);
 
 // LIBRAIRIE influxDB ------------------------------------------------------------------------------
-include_once 'src/InfluxDB/Client.php';
+require 'vendor/autoload.php';
+
+
+
 
 // CREATION D'UN OBJET CLIENT INFLUXDB
-$host	= "193.52.19.20";
-$port	= "8089";
-$l_OBJ_influxDBClient = new InfluxDB\Client($host, $port);
+$client = new InfluxDB\Client(
+		"193.52.19.20",		// host
+		"8086",				// port
+		"",					// user
+		""					// mot de passe
+		);
 
 
 
 
-// RECUPERATION DES DONNÉES DEPUIS CE MATIN À 00:00 ------------------------------------------------
 
-// Calcul de la date de ce matin (au format timestamp)
-$l_TIM_ceMatin	= strtotime('today midnight');
+// CONNECTION À LA BDD -----------------------------------------------------------------------------
+$database	= $client->selectDB('mesures');													
 
-// Construction de la requete
-$database	= $client->selectDB('mesures');															// Connection à la BDD
-$result		= $database->query('select * from "mesures"."autogen"."passage" WHERE time > '.$l_TIM_ceMatin); // Requète (mySQL) pour la récupération des données
 
-// Transformation du résultat en points dans un tableau
-$l_TAB_Points	= $result->getPoints();
+
+
+// CONSTRUCTION DE LA REQUETE ----------------------------------------------------------------------
+$query	= "SELECT SUM(\"capteur\") as sum_capteur FROM autogen.passage WHERE position = 'dehors' AND time > now() - 8h  GROUP BY time(1h)";
+if (DEBUG) echo "Execution de la requète :<br/>".$query;
+
+
+try {
+	// On essaie de faire la requète
+	$result	= $database->query($query);
+	
+} catch( Exception $e) {
+	
+	// Si l'execution de la requète se passe mal, on a une exeption qui est levée et on dump l'exeption. 
+	var_dump($e);
+	exit();
+}
+
+
+
+// TRANSFORMATION DES DONNÉES RÉCUPÉRÉES EN POINTS -------------------------------------------------
+$points = $result->getPoints();
+if(DEBUG) {
+	echo "<pre>";
+	var_dump($points);
+	echo "</pre>";
+} 
+
+
+
+
+
 
 
 
@@ -40,16 +72,37 @@ $l_TAB_Points	= $result->getPoints();
 // FORMATTAGE DES DONNÉES --------------------------------------------------------------------------
 
 
-// TRACE DE DEBUG DEBUT____________________________________________________________________________________
-ini_set( 'html_errors' , 0 );
-echo "<pre>";
-echo str_repeat("_", 80)."\n";
-printf('Fichier : %s, Ligne : %s',__FILE__,__LINE__); echo "\nContenu de  \$l_TAB_Points : ";
-var_dump($l_TAB_Points);
-echo str_repeat("_", 80)."\n";
-echo "</pre>";
-// TRACE DE DEBUG FIN _______________________________________________________________________________________ 
-
-
 
 ?>
+
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Language', 'Speakers (in millions)'],
+          ['German',  5.85],
+          ['French',  1.66],
+          ['Italian', 0.316],
+          ['Romansh', 0.0791]
+        ]);
+
+      var options = {
+        legend: 'none',
+        pieSliceText: 'label',
+        title: 'Swiss Language Use (100 degree rotation)',
+        pieStartAngle: 100,
+      };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="piechart" style="width: 900px; height: 500px;"></div>
+  </body>
+</html>
