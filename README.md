@@ -16,11 +16,26 @@ Pour cela, dans un répertoire (qui sera le répertoire racine du serveur d'expl
 ## Exemple (github)
 Un exemple d'utilisation de la librairie est disponible sur github sur le depot https://github.com/AlexP20000/fablab.web.compteurpersonne
 
+# Configuration
+Les capteurs ont un identifiant unique permettant de différencier leur jeux de données dans la base.
+
+Cet identifiant est stocké dans le champ "position" et peut avoir (pour l'instant) les valeurs :
+
+- bu -> Capteur dans l'entrée de la BU Lettre.
+- dehors -> capteur en test au FabLab.
+
+
+
+
+
+
 # Description des exemples fournis
 Les fichiers PHP ci-joint comportent plusieurs exemple d'utilisation des données stockées dans la base influxDB.
 
+
 ##RepartitionDuNbDePersonne.php
 Permet de faire un graphique (camembert) montrant la répartition des entrées par créneaux horaires.
+
 
 ##AfficheTauxRemplissage.php
 Permet d'afficher le taux de remplissage de la salle devant laquelle on a un compteur de personne.
