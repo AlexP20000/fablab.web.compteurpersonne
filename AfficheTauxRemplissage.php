@@ -71,8 +71,20 @@ $nbPersonnesComptees	= $points[0]['sum_capteur'];
 
 ?>
 
-<html>
+<html lang="fr">
   <head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+
+
+	<title>Compteur personne : Taux remplissage</title>
+  	
+  	
+  	
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
       google.charts.load("current", {packages:["corechart"]});
@@ -86,10 +98,9 @@ $nbPersonnesComptees	= $points[0]['sum_capteur'];
         
 
 			var options = {
-	    	    legend: 'none',
-		        pieSliceText: 'label',
-		        title: "Taux de remplissage de la BU Lettre du Bouguen",
-		        pieStartAngle: 100,
+		        backgroundColor: { fill:'transparent' },
+		        is3D:true,
+		        colors: ['#CB0101', '#7EBD01']
       		};
 
 			var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -98,6 +109,24 @@ $nbPersonnesComptees	= $points[0]['sum_capteur'];
     </script>
   </head>
   <body>
-    <div id="piechart" style="width: 900px; height: 600px;"></div>
+  	<div class="container">
+  		<?php include_once 'menu.php';?>
+  		
+  		
+		<div class="jumbotron">
+		  	<h1 class="display-4">Taux de remplissage de la BU Lettres du Bouguen</h1>
+			<p class="lead">Le taux de remplissage est calculé en temps réel grace à un capteur de passage situé à l'entrée de la Bibliothèque.</p>
+		</div>
+	  	
+	  	
+	  	
+	
+		<!-- emplacement pour le graphique de visualisation -->
+	    <div id="piechart" style="width: 100%; height: 900px;"></div>
+    
+    
+    
+    
+  	</div>
   </body>
 </html>

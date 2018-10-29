@@ -1,0 +1,12 @@
+@CHARSET "ISO-8859-1";
+body  {
+	color: #FFFFFF;
+	background: #d1d1d1;
+	background: -moz-radial-gradient(center, ellipse cover, #d1d1d1 0%, #0e0e0e 100%);
+	background: -webkit-radial-gradient(center, ellipse cover, #d1d1d1 0%,#0e0e0e 100%);
+	background: radial-gradient(ellipse at center, #d1d1d1 0%,#0e0e0e 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d1d1d1', endColorstr='#0e0e0e',GradientType=1 );
+}
+.jumbotron {
+	color: #3366CC;
+}

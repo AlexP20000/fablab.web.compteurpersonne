@@ -85,7 +85,7 @@ $Result->cols[] = array(
 		"id" 		=> "",
 		"label" 	=> "Heure",
 		"pattern" 	=> "",
-		"type" 		=> "number"
+		"type" 		=> "string"
 );
 
 // CREATION DES LIGNES
@@ -93,7 +93,7 @@ date_default_timezone_set('Europe/Paris');	// Ajustement
 foreach( $points as $point){
 	$l_TIM_Date	= strtotime($point['time']);
 	$Result->rows[]["c"]	= array(
-			array( "v" => date("H", $l_TIM_Date), "f" => null),
+			array( "v" => date("H", $l_TIM_Date)." h", "f" => null),
 			array( "v" => abs($point['sum_capteur']), "f" => null),
 	);
 }
@@ -111,6 +111,19 @@ if(DEBUG){
 
 <html>
   <head>
+  	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+
+
+	<title>Compteur personne : Répartition du nombre de passage par heure</title>
+  	
+  
+  
+  
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
       google.charts.load("current", {packages:["corechart"]});
@@ -120,10 +133,8 @@ if(DEBUG){
         
 
       var options = {
-    	      legend: 'none',
-        pieSliceText: 'label',
-        title: "Répartition du nombre de passage par heure",
-        pieStartAngle: 100,
+    	      backgroundColor: { fill:'transparent' },
+    	      is3D:true,
       };
 
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -132,6 +143,26 @@ if(DEBUG){
     </script>
   </head>
   <body>
-    <div id="piechart" style="width: 900px; height: 600px;"></div>
+  	<?php include_once 'menu.php';?>
+  	
+  	
+  	
+  	
+  	<div class="container">
+		<div class="jumbotron">
+		  	<h1 class="display-4">Répartition du nombre de passage à la B.U Lettres du Bouguen par heure</h1>
+			<p class="lead">Le taux de remplissage est calculé en temps réel grace à un capteur de passage situé à l'entrée de la Bibliothèque.</p>
+		</div>
+	  	
+	  	
+	  	
+	
+		<!-- emplacement pour le graphique de visualisation -->
+	    <div id="piechart" style="width: 100%; height: 900px;"></div>
+    
+    
+    
+    
+  	</div>
   </body>
 </html>
