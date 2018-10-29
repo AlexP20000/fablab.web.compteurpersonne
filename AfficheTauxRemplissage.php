@@ -8,9 +8,9 @@
 *	@author Alexandre PERETJATKO (APE)
 *	@version 18 sept. 2018	: APE	- Création.
 */ // ______________________________________________________________________________________________
-define("DEBUG", true);	// true : affiche les traces permettant de débuger le script, FALSE pour le reste du temps.
+define("DEBUG", false);	// true : affiche les traces permettant de débuger le script, FALSE pour le reste du temps.
 
-$nbPlaceDisponibleDansLaSalle	= 200;	// Le nombre de place assise disponibles.
+$nbPlaceDisponibleDansLaSalle	= 150;	// Le nombre de place assise disponibles.
 
 
 
@@ -98,6 +98,6 @@ $nbPersonnesComptees	= $points[0]['sum_capteur'];
     </script>
   </head>
   <body>
-    <div id="piechart" style="width: 900px; height: 500px;"></div>
+    <div id="piechart" style="width: 900px; height: 600px;"></div>
   </body>
 </html>

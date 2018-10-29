@@ -132,6 +132,6 @@ if(DEBUG){
     </script>
   </head>
   <body>
-    <div id="piechart" style="width: 900px; height: 500px;"></div>
+    <div id="piechart" style="width: 900px; height: 600px;"></div>
   </body>
 </html>
