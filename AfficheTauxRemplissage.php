@@ -109,10 +109,12 @@ $nbPersonnesComptees	= $points[0]['sum_capteur'];
     </script>
   </head>
   <body>
+	<?php include_once 'menu.php';?>
+	
+	
+	
+	
   	<div class="container">
-  		<?php include_once 'menu.php';?>
-  		
-  		
 		<div class="jumbotron">
 		  	<h1 class="display-4">Taux de remplissage de la BU Lettres du Bouguen</h1>
 			<p class="lead">Le taux de remplissage est calculé en temps réel grace à un capteur de passage situé à l'entrée de la Bibliothèque.</p>

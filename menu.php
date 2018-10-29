@@ -3,6 +3,8 @@
 *	@file menu.php
 *	@brief Menu principal pour l'affichage des pages.
 *
+*	@todo : rendre le menu dynamique (actuellement il faut le renseigner à la main).
+*
 *	@author Alexandre PERETJATKO (APE)
 *	@version 29 oct. 2018	: APE	- Création.
 */ // ______________________________________________________________________________________________
