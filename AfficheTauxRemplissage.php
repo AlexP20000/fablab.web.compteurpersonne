@@ -11,7 +11,7 @@
 */ // ______________________________________________________________________________________________
 define("DEBUG", false);	// true : affiche les traces permettant de débuger le script, FALSE pour le reste du temps.
 
-$nbPlaceDisponibleDansLaSalle	= 150;	// Le nombre de place assise disponibles.
+$nbPlaceDisponibleDansLaSalle	= 614;	// Le nombre de place assise disponibles.
 
 
 
