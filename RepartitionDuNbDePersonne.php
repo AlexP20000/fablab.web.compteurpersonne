@@ -135,6 +135,7 @@ if(DEBUG){
       var options = {
     	      backgroundColor: { fill:'transparent' },
     	      is3D:true,
+    	      pieSliceText: 'label',
       };
 
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -150,8 +151,9 @@ if(DEBUG){
   	
   	<div class="container">
 		<div class="jumbotron">
-		  	<h1 class="display-4">Répartition du nombre de passage à la B.U Lettres du Bouguen par heure</h1>
-			<p class="lead">Le taux de remplissage est calculé en temps réel grace à un capteur de passage situé à l'entrée de la Bibliothèque.</p>
+		  	<h1 class="display-4">Répartition du taux de remplissage de la B.U du Bouguen par heure</h1>
+			<p class="lead">Les passages sont calculés en temps réel grace à un capteur situé à l'entrée de la Bibliothèque.</p>
+			<p>L'affichage se fait sur les 8 dernières heures non vides.</p>
 		</div>
 	  	
 	  	

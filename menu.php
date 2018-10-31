@@ -20,12 +20,8 @@
 	
 	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	    <ul class="navbar-nav mr-auto">
-	      <li class="nav-item ">
-		    <a class="nav-link" href="AfficheTauxRemplissage.php">Taux de remplissage</a>
-	      </li>
-	      <li class="nav-item">
-		    <a class="nav-link" href="RepartitionDuNbDePersonne.php">Répartition de la pfréquentation par heure</a>
-	      </li>
+	      <li class="nav-item "><a class="nav-link" href="AfficheTauxRemplissage.php">Taux de remplissage</a></li>
+	      <li class="nav-item"><a class="nav-link" href="RepartitionDuNbDePersonne.php">Répartition du taux de remplissage par heure</a></li>
 	  </div>
 	</nav>
 </div>

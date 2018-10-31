@@ -7,6 +7,7 @@
 *
 *	@author Alexandre PERETJATKO (APE)
 *	@version 18 sept. 2018	: APE	- Création.
+*	@version 31 oct. 2018	: APE	- Protection contre les valeurs négatives.
 */ // ______________________________________________________________________________________________
 define("DEBUG", false);	// true : affiche les traces permettant de débuger le script, FALSE pour le reste du temps.
 
@@ -67,7 +68,9 @@ if(DEBUG) {
 } 
 
 // FORMATAGE DES DONNEES ---------------------------------------------------------------------------
-$nbPersonnesComptees	= $points[0]['sum_capteur'];
+// Si on a un nombre <0 de personnes dans la BU on le rapporte à 0.
+// sinon on prend la valeur récupérée de la BDD
+$nbPersonnesComptees	= $points[0]['sum_capteur'] < 0 ? 0: $points[0]['sum_capteur'];
 
 ?>
 
@@ -100,7 +103,7 @@ $nbPersonnesComptees	= $points[0]['sum_capteur'];
 			var options = {
 		        backgroundColor: { fill:'transparent' },
 		        is3D:true,
-		        colors: ['#CB0101', '#7EBD01']
+		        colors: ['#7EBD01','#CB0101']
       		};
 
 			var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -116,7 +119,7 @@ $nbPersonnesComptees	= $points[0]['sum_capteur'];
 	
   	<div class="container">
 		<div class="jumbotron">
-		  	<h1 class="display-4">Taux de remplissage de la BU Lettres du Bouguen</h1>
+		  	<h1 class="display-4">Taux de remplissage de la BU du Bouguen</h1>
 			<p class="lead">Le taux de remplissage est calculé en temps réel grace à un capteur de passage situé à l'entrée de la Bibliothèque.</p>
 		</div>
 	  	
